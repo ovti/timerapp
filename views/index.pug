@@ -6,15 +6,8 @@ block content
     a(href='/log-out') LOG OUT
   else
     h1 Please log in or sign up
-    form(action='/log-in' method='POST')
-      div
-        label(for='username') Username
-        input(name='username' placeholder='username' type='text')
-      div
-        label(for='password') Password
-        input(name='password' type='password')
-      div
-        button(type='submit') Log In
-
+    if messages.error
+      p.error= messages.error
+    include user/login
     h1 
       a(href='/signup') Sign Up

@@ -53,7 +53,20 @@ exports.logOut = (req, res, next) => {
   });
 };
 
-exports.logIn = passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/',
-});
+exports.logIn = (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      req.flash('error', 'Invalid username or password');
+      return res.redirect('/');
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect('/');
+    });
+  })(req, res, next);
+};

@@ -1,14 +1,14 @@
-extends layout
+extends ../layout
 
 block content
-  h1 Welcome to Express
-  h1 please log in
-  form(action='/log-in' method='POST')
-    label(for='username') Username
-    input(name='username' placeholder='username' type='text')
-    label(for='password') Password
-    input(name='password' type='password')
-    button(type='submit') Log In
-
+    form(action='/log-in' method='POST')
+      div
+        label(for='username') Username
+        input(name='username' placeholder='username' type='text')
+      div
+        label(for='password') Password
+        input(name='password' type='password')
+      div
+        button(type='submit') Log In
 
 
