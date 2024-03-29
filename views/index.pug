@@ -3,7 +3,7 @@ extends layout
 block content
   if user
     h1 WELCOME BACK #{user.username.toUpperCase()}
-    a(href='/log-out') LOG OUT
+    a(href='/logout') LOGOUT
   else
     h1 Please log in or sign up
     if messages.error

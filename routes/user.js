@@ -8,8 +8,8 @@ router.get('/signup', userController.getSignup);
 
 router.post('/signup', userController.postSignup);
 
-router.get('/log-out', userController.logOut);
+router.get('/logout', userController.logOut);
 
-router.post('/log-in', userController.logIn);
+router.post('/login', userController.logIn);
 
 module.exports = router;
