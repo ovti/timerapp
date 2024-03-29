@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  h1 Sign Up
+  form(method='post', action='')
+    div
+      label(for='username') Username:
+      input(type='text', name='username', id='username')
+    div
+      label(for='password') Password:
+      input(type='password', name='password', id='password')
+    div
+      label(for='confirmPassword') Confirm Password:
+      input(type='password', name='confirmPassword', id='confirmPassword')
+    div
+      input(type='submit', value='Sign Up')
