@@ -8,6 +8,8 @@ block content
     h1 Please log in or sign up
     if messages.error
       p.error= messages.error
+    if messages.success
+      p.success #{messages.success}
     include user/login
     h1 
       a(href='/signup') Sign Up

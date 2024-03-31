@@ -14,21 +14,19 @@ exports.getIndex = async (req, res) => {
 };
 
 exports.getSignup = (req, res) => {
-  res.render('user/signup');
+  res.render('user/signup', { message: req.flash('error') });
 };
 
 exports.postSignup = async (req, res, next) => {
   try {
     const existingUser = await User.findOne({ username: req.body.username });
     if (existingUser) {
-      const err = new Error('User already exists');
-      err.status = 400;
-      return next(err);
+      req.flash('error', 'User already exists');
+      return res.render('user/signup', { message: req.flash('error') });
     }
     if (req.body.password !== req.body.confirmPassword) {
-      const err = new Error('Passwords do not match');
-      err.status = 400;
-      return next(err);
+      req.flash('error', 'Passwords do not match');
+      return res.render('user/signup', { message: req.flash('error') });
     }
 
     const user = new User({
@@ -38,6 +36,7 @@ exports.postSignup = async (req, res, next) => {
       last_name: req.body.lastName,
     });
     await user.save();
+    req.flash('success', 'You are now registered and can log in');
     res.redirect('/');
   } catch (err) {
     return next(err);
