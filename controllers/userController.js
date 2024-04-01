@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('../models/user');
-const { Sequelize } = require('sequelize');
 
 exports.getIndex = async (req, res) => {
   try {
@@ -34,7 +33,7 @@ exports.postSignup = async (req, res, next) => {
 
     await User.create({
       username: req.body.username,
-      password: hashedPassword,
+      password: req.body.password,
     });
 
     req.flash('success', 'You are now registered and can log in');

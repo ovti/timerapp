@@ -1,11 +1,11 @@
 {
-  "name": "members-only",
+  "name": "timerapp",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "serverstart": "DEBUG=members-only:* npm run devstart"
+    "serverstart": "DEBUG=timerapp:* npm run devstart"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
