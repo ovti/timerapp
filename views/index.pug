@@ -3,6 +3,7 @@ extends layout
 block content
   if user
     h1 WELCOME BACK #{user.username.toUpperCase()}
+    include timer/timer
     a(href='/logout') LOGOUT
   else
     h1 Please log in or sign up
@@ -13,3 +14,5 @@ block content
     include user/login
     h1 
       a(href='/signup') Sign Up
+
+

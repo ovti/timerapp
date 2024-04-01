@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const timerController = require('../controllers/timerController');
 
 router.get('/', userController.getIndex);
 
@@ -11,5 +12,7 @@ router.post('/signup', userController.postSignup);
 router.get('/logout', userController.logOut);
 
 router.post('/login', userController.logIn);
+
+router.post('/saveTimerSession', timerController.saveTimerSession);
 
 module.exports = router;

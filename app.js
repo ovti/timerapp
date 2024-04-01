@@ -34,6 +34,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(require('./routes/user'));
+app.use(require('./routes/routes'));
 
 module.exports = app;
