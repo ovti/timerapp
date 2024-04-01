@@ -1,8 +1,7 @@
+const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('../models/user');
-const dotenv = require('dotenv');
-
-dotenv.config();
+const { Sequelize } = require('sequelize');
 
 exports.getIndex = async (req, res) => {
   try {
@@ -19,7 +18,9 @@ exports.getSignup = (req, res) => {
 
 exports.postSignup = async (req, res, next) => {
   try {
-    const existingUser = await User.findOne({ username: req.body.username });
+    const existingUser = await User.findOne({
+      where: { username: req.body.username },
+    });
     if (existingUser) {
       req.flash('error', 'User already exists');
       return res.render('user/signup', { message: req.flash('error') });
@@ -29,13 +30,13 @@ exports.postSignup = async (req, res, next) => {
       return res.render('user/signup', { message: req.flash('error') });
     }
 
-    const user = new User({
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    await User.create({
       username: req.body.username,
-      password: req.body.password,
-      first_name: req.body.firstName,
-      last_name: req.body.lastName,
+      password: hashedPassword,
     });
-    await user.save();
+
     req.flash('success', 'You are now registered and can log in');
     res.redirect('/');
   } catch (err) {

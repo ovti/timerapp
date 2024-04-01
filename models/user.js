@@ -1,21 +1,24 @@
-const mongoose = require('mongoose');
+const Sequelize = require('sequelize');
 const bcrypt = require('bcryptjs');
+const sequelize = require('../db');
 
-const Schema = mongoose.Schema;
-
-const userSchema = new Schema({
-  username: { type: String, required: true, unique: true, minlength: 3 },
-  password: { type: String, required: true, minlength: 3 },
+const User = sequelize.define('user', {
+  username: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+    validate: { len: [3, undefined] },
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: { len: [3, undefined] },
+  },
 });
 
-userSchema.pre('save', async function (next) {
-  const user = this;
-  if (user.isModified('password')) {
-    user.password = await bcrypt.hash(user.password, 10);
-  }
-  next();
+User.beforeCreate(async (user) => {
+  const hashedPassword = await bcrypt.hash(user.password, 10);
+  user.password = hashedPassword;
 });
-
-const User = mongoose.model('User', userSchema);
 
 module.exports = User;

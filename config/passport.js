@@ -6,7 +6,7 @@ const User = require('../models/user');
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const user = await User.findOne({ username: username });
+      const user = await User.findOne({ where: { username: username } });
       if (!user) {
         console.log('Incorrect username');
         return done(null, false, { message: 'Incorrect username' });
@@ -29,7 +29,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findById(id);
+    const user = await User.findByPk(id);
     done(null, user);
   } catch (err) {
     done(err);
