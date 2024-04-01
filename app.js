@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 
-require('./db');
+require('./db/db');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');

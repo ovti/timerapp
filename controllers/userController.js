@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const User = require('../models/user');
+const User = require('../db/models/user');
 
 exports.getIndex = async (req, res) => {
   try {
