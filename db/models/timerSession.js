@@ -1,6 +1,7 @@
 'use strict';
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../db');
+
 class TimerSession extends Model {
   static associate(models) {
     TimerSession.belongsTo(models.User, { foreignKey: 'userId' });
@@ -17,13 +18,11 @@ TimerSession.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    timestamp: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
   },
   {
     sequelize,
+    timestamps: true,
+    updatedAt: false,
     modelName: 'TimerSession',
     tableName: 'timer_sessions',
   }
