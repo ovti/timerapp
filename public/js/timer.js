@@ -62,7 +62,6 @@ function saveTimerSession(duration) {
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM content loaded');
 
-  // Function to fetch session count for the current user
   function fetchSessionCount() {
     fetch('/sessionCount')
       .then((response) => response.json())
@@ -75,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  // Function to update the session count in the DOM
   function updateSessionCountUI(sessionCount) {
     const sessionCountElement = document.getElementById('sessionCount');
     sessionCountElement.textContent = `Sessions today: ${sessionCount}`;
@@ -98,13 +96,11 @@ document.addEventListener('DOMContentLoaded', function () {
     totalDurationElement.textContent = `Total duration today: ${totalDuration}`;
   }
 
-  // Function to fetch session count and total duration periodically
   function fetchAndUpdateData() {
     fetchSessionCount();
     fetchTotalDuration();
   }
 
-  // Add event listeners for start, stop, and duration select
   document.getElementById('startTimer').addEventListener('click', startTimer);
   document.getElementById('stopTimer').addEventListener('click', stopTimer);
   document
@@ -114,9 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log('Selected duration:', selectedDuration);
     });
 
-  // Fetch session count and total duration when DOM content is loaded
   fetchAndUpdateData();
 
-  // Update data every 30 seconds (adjust the interval as needed)
   setInterval(fetchAndUpdateData, 5000); // 30 seconds
 });
