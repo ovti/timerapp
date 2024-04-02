@@ -15,4 +15,8 @@ router.post('/login', userController.logIn);
 
 router.post('/saveTimerSession', timerController.saveTimerSession);
 
+router.get('/sessionCount', timerController.sessionCount);
+
+router.get('/totalDuration', timerController.totalDuration);
+
 module.exports = router;

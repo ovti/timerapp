@@ -29,8 +29,6 @@ exports.postSignup = async (req, res, next) => {
       return res.render('user/signup', { message: req.flash('error') });
     }
 
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
     await User.create({
       username: req.body.username,
       password: req.body.password,

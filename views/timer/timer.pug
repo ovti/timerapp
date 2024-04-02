@@ -7,10 +7,12 @@ block content
     button#stopTimer Stop Timer
     p#timerDisplay Timer: 0 seconds
 
-    // Dropdown menu for selecting duration
     select#durationSelect
       option(value="5") 5 seconds
       option(value="6") 6 seconds
       option(value="7") 7 seconds
+
+    p#sessionCount Sessions today: 0
+    p#totalDuration Total duration: 0 seconds 
 
     script(src='/js/timer.js')

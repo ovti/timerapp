@@ -59,9 +59,52 @@ function saveTimerSession(duration) {
     });
 }
 
-// Add event listeners when DOM content is loaded
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM content loaded');
+
+  // Function to fetch session count for the current user
+  function fetchSessionCount() {
+    fetch('/sessionCount')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Session count:', data.sessionCount);
+        updateSessionCountUI(data.sessionCount);
+      })
+      .catch((error) => {
+        console.error('Error fetching session count:', error);
+      });
+  }
+
+  // Function to update the session count in the DOM
+  function updateSessionCountUI(sessionCount) {
+    const sessionCountElement = document.getElementById('sessionCount');
+    sessionCountElement.textContent = `Sessions today: ${sessionCount}`;
+  }
+
+  function fetchTotalDuration() {
+    fetch('/totalDuration')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Total duration:', data.totalDuration);
+        updateTotalDurationUI(data.totalDuration);
+      })
+      .catch((error) => {
+        console.error('Error fetching total duration:', error);
+      });
+  }
+
+  function updateTotalDurationUI(totalDuration) {
+    const totalDurationElement = document.getElementById('totalDuration');
+    totalDurationElement.textContent = `Total duration today: ${totalDuration}`;
+  }
+
+  // Function to fetch session count and total duration periodically
+  function fetchAndUpdateData() {
+    fetchSessionCount();
+    fetchTotalDuration();
+  }
+
+  // Add event listeners for start, stop, and duration select
   document.getElementById('startTimer').addEventListener('click', startTimer);
   document.getElementById('stopTimer').addEventListener('click', stopTimer);
   document
@@ -70,4 +113,10 @@ document.addEventListener('DOMContentLoaded', function () {
       selectedDuration = parseInt(this.value);
       console.log('Selected duration:', selectedDuration);
     });
+
+  // Fetch session count and total duration when DOM content is loaded
+  fetchAndUpdateData();
+
+  // Update data every 30 seconds (adjust the interval as needed)
+  setInterval(fetchAndUpdateData, 5000); // 30 seconds
 });
