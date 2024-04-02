@@ -112,5 +112,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
   fetchAndUpdateData();
 
-  setInterval(fetchAndUpdateData, 5000); // 30 seconds
+  setInterval(fetchAndUpdateData, 5000); 
 });
