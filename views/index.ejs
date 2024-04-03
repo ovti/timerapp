@@ -1,0 +1,15 @@
+<%- include('layout') %> <% if (user) { %>
+<h1>WELCOME BACK <%= user.username.toUpperCase() %></h1>
+<%- include('timer/timer') %>
+<a href="/logout">LOGOUT</a>
+<% } else { %>
+<h1>Please log in or sign up</h1>
+<% if (messages.error) { %>
+<p class="error"><%= messages.error %></p>
+<% } %> <% if (messages.success) { %>
+<p class="success"><%= messages.success %></p>
+<% } %> <%- include('user/login') %>
+<h1>
+  <a href="/signup">Sign Up</a>
+</h1>
+<% } %>

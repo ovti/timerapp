@@ -1,0 +1,21 @@
+<%- include('../layout') %>
+
+<div id="content">
+  <h3>TIMER</h3>
+  <div id="timer">
+    <button id="startTimer">Start Timer</button>
+    <button id="stopTimer">Stop Timer</button>
+    <p id="timerDisplay">Timer: 0 seconds</p>
+
+    <select id="durationSelect">
+      <option value="5">5 seconds</option>
+      <option value="6">6 seconds</option>
+      <option value="7">7 seconds</option>
+    </select>
+
+    <p id="sessionCount">Sessions today: 0</p>
+    <p id="totalDuration">Total duration: 0 seconds</p>
+  </div>
+</div>
+
+<script src="/js/timer.js"></script>
