@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM content loaded');
 
   function fetchSessionCount() {
-    fetch('/sessionCount')
+    fetch('/sessionCountToday')
       .then((response) => response.json())
       .then((data) => {
         console.log('Session count:', data.sessionCount);
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function fetchTotalDuration() {
-    fetch('/totalDuration')
+    fetch('/totalDurationToday')
       .then((response) => response.json())
       .then((data) => {
         console.log('Total duration:', data.totalDuration);
@@ -112,5 +112,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
   fetchAndUpdateData();
 
-  setInterval(fetchAndUpdateData, 5000); 
+  setInterval(fetchAndUpdateData, 5000);
 });
