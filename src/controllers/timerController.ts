@@ -1,14 +1,19 @@
-const TimerSession = require('../db/models/timerSession');
-const { Op } = require('sequelize');
+import { Request, Response, NextFunction } from 'express';
+import TimerSession from '../db/models/timerSession';
+import { Op } from 'sequelize';
 
-exports.saveTimerSession = async (req, res, next) => {
+export const saveTimerSession = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { time } = req.query;
     console.log('Saving timer session ', time);
-    console.log('User:', req.user.id);
+    console.log('User:', (req.user as any).id);
     await TimerSession.create({
-      userId: req.user.id,
-      timeInSeconds: parseInt(time),
+      userId: (req.user as any).id,
+      timeInSeconds: parseInt(time as string),
     });
     res.sendStatus(200);
   } catch (err) {
@@ -17,11 +22,15 @@ exports.saveTimerSession = async (req, res, next) => {
   }
 };
 
-exports.sessionCountToday = async (req, res, next) => {
+export const sessionCountToday = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const sessionCount = await TimerSession.count({
       where: {
-        userId: req.user.id,
+        userId: (req.user as any).id,
         createdAt: {
           [Op.gte]: new Date(new Date().setHours(0, 0, 0, 0)),
         },
@@ -34,11 +43,15 @@ exports.sessionCountToday = async (req, res, next) => {
   }
 };
 
-exports.totalDurationToday = async (req, res, next) => {
+export const totalDurationToday = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const totalDuration = await TimerSession.sum('timeInSeconds', {
       where: {
-        userId: req.user.id,
+        userId: (req.user as any).id,
         createdAt: {
           [Op.gte]: new Date(new Date().setHours(0, 0, 0, 0)),
         },

@@ -1,9 +1,8 @@
-'use strict';
-const { DataTypes, Model } = require('sequelize');
-const sequelize = require('../db');
+import { DataTypes, Model } from 'sequelize';
+import sequelize from '../db';
 
 class TimerSession extends Model {
-  static associate(models) {
+  static associate(models: any) {
     TimerSession.belongsTo(models.User, { foreignKey: 'userId' });
   }
 }
@@ -28,4 +27,4 @@ TimerSession.init(
   }
 );
 
-module.exports = TimerSession;
+export default TimerSession;

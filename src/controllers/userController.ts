@@ -1,8 +1,9 @@
-const bcrypt = require('bcryptjs');
-const passport = require('passport');
-const User = require('../db/models/user');
+import bcrypt from 'bcryptjs';
+import passport from 'passport';
+import { Request, Response, NextFunction } from 'express';
+import User from '../db/models/user';
 
-exports.getIndex = async (req, res) => {
+export const getIndex = async (req: Request, res: Response) => {
   try {
     res.render('index', { user: req.user });
   } catch (err) {
@@ -11,11 +12,15 @@ exports.getIndex = async (req, res) => {
   }
 };
 
-exports.getSignup = (req, res) => {
+export const getSignup = (req: Request, res: Response) => {
   res.render('user/signup', { message: req.flash('error') });
 };
 
-exports.postSignup = async (req, res, next) => {
+export const postSignup = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const existingUser = await User.findOne({
       where: { username: req.body.username },
@@ -41,7 +46,7 @@ exports.postSignup = async (req, res, next) => {
   }
 };
 
-exports.logOut = (req, res, next) => {
+export const logOut = (req: Request, res: Response, next: NextFunction) => {
   req.logout((err) => {
     if (err) {
       return next(err);
@@ -50,8 +55,8 @@ exports.logOut = (req, res, next) => {
   });
 };
 
-exports.logIn = (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
+export const logIn = (req: Request, res: Response, next: NextFunction) => {
+  passport.authenticate('local', (err: Error, user: unknown, info: unknown) => {
     if (err) {
       return next(err);
     }

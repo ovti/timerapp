@@ -1,9 +1,9 @@
-let countdownTimer;
-let remainingTime = 0;
-let isTimerRunning = false;
-let selectedDuration = 5;
+let countdownTimer: NodeJS.Timeout;
+let remainingTime: number = 0;
+let isTimerRunning: boolean = false;
+let selectedDuration: number = 5;
 
-function startTimer() {
+function startTimer(): void {
   console.log('Start button clicked');
   if (!isTimerRunning) {
     isTimerRunning = true;
@@ -14,13 +14,13 @@ function startTimer() {
   }
 }
 
-function stopTimer() {
+function stopTimer(): void {
   console.log('Stop button clicked');
   clearInterval(countdownTimer);
   isTimerRunning = false;
 }
 
-function updateTimer() {
+function updateTimer(): void {
   if (remainingTime > 0 && isTimerRunning) {
     remainingTime--;
     updateTimeUI();
@@ -32,13 +32,15 @@ function updateTimer() {
   }
 }
 
-function updateTimeUI() {
-  document.getElementById(
-    'timerDisplay'
-  ).innerText = `Timer: ${remainingTime} seconds`;
+function updateTimeUI(): void {
+  const timerDisplayElement: HTMLElement | null =
+    document.getElementById('timerDisplay');
+  if (timerDisplayElement) {
+    timerDisplayElement.innerText = `Timer: ${remainingTime} seconds`;
+  }
 }
 
-function saveTimerSession(duration) {
+function saveTimerSession(duration: number): void {
   console.log('Saving timer session');
   console.log('Total duration:', duration);
   fetch(`/saveTimerSession?time=${duration}`, {
@@ -59,10 +61,10 @@ function saveTimerSession(duration) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM content loaded');
 
-  function fetchSessionCount() {
+  function fetchSessionCount(): void {
     fetch('/sessionCountToday')
       .then((response) => response.json())
       .then((data) => {
@@ -74,12 +76,15 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  function updateSessionCountUI(sessionCount) {
-    const sessionCountElement = document.getElementById('sessionCount');
-    sessionCountElement.textContent = `Sessions today: ${sessionCount}`;
+  function updateSessionCountUI(sessionCount: number): void {
+    const sessionCountElement: HTMLElement | null =
+      document.getElementById('sessionCount');
+    if (sessionCountElement) {
+      sessionCountElement.textContent = `Sessions today: ${sessionCount}`;
+    }
   }
 
-  function fetchTotalDuration() {
+  function fetchTotalDuration(): void {
     fetch('/totalDurationToday')
       .then((response) => response.json())
       .then((data) => {
@@ -91,22 +96,25 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  function updateTotalDurationUI(totalDuration) {
-    const totalDurationElement = document.getElementById('totalDuration');
-    totalDurationElement.textContent = `Total duration today: ${totalDuration}`;
+  function updateTotalDurationUI(totalDuration: number): void {
+    const totalDurationElement: HTMLElement | null =
+      document.getElementById('totalDuration');
+    if (totalDurationElement) {
+      totalDurationElement.textContent = `Total duration today: ${totalDuration}`;
+    }
   }
 
-  function fetchAndUpdateData() {
+  function fetchAndUpdateData(): void {
     fetchSessionCount();
     fetchTotalDuration();
   }
 
-  document.getElementById('startTimer').addEventListener('click', startTimer);
-  document.getElementById('stopTimer').addEventListener('click', stopTimer);
+  document.getElementById('startTimer')?.addEventListener('click', startTimer);
+  document.getElementById('stopTimer')?.addEventListener('click', stopTimer);
   document
     .getElementById('durationSelect')
-    .addEventListener('change', function () {
-      selectedDuration = parseInt(this.value);
+    ?.addEventListener('change', function () {
+      selectedDuration = parseInt((this as HTMLInputElement).value);
       console.log('Selected duration:', selectedDuration);
     });
 

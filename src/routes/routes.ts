@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import * as userController from '../controllers/userController';
+import * as timerController from '../controllers/timerController';
+
 const router = express.Router();
-const userController = require('../controllers/userController');
-const timerController = require('../controllers/timerController');
 
 router.get('/', userController.getIndex);
 
@@ -19,4 +20,4 @@ router.get('/sessionCountToday', timerController.sessionCountToday);
 
 router.get('/totalDurationToday', timerController.totalDurationToday);
 
-module.exports = router;
+export default router;
