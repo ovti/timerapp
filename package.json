@@ -5,6 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
+    "tailwind": "npx tailwindcss -i ./public/stylesheets/input.css -o ./public/stylesheets/output.css --watch",
+    "devstart": "npm run dev & npm run tailwind",
     "serverstart": "DEBUG=timerapp:* npm run devstart"
   },
   "dependencies": {
@@ -28,5 +30,8 @@
     "pug": "2.0.0-beta11",
     "sequelize": "^6.37.2",
     "sequelize-cli": "^6.6.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
   }
 }
