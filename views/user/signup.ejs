@@ -1,22 +1,48 @@
 <%- include('../layout') %>
-<h1>Sign Up</h1>
-<% if (message) { %>
-<p class="error"><%= message %></p>
-<% } %>
-<form method="post" action="">
-  <div>
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" />
+<div class="container mx-auto px-4 py-8">
+  <div class="mb-6 text-center">
+    <h1 class="text-3xl font-bold mb-6">Sign Up</h1>
+    <% if (message) { %>
+    <p class="text-red-600"><%= message %></p>
+    <% } %>
   </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" />
-  </div>
-  <div>
-    <label for="confirmPassword">Confirm Password:</label>
-    <input type="password" name="confirmPassword" id="confirmPassword" />
-  </div>
-  <div>
-    <input type="submit" value="Sign Up" />
-  </div>
-</form>
+  <form method="post" action="" class="max-w-md mx-auto">
+    <div class="mb-4">
+      <label for="username" class="block text-gray-700">Username</label>
+      <input
+        type="text"
+        name="username"
+        id="username"
+        class="form-input mt-1 block w-full"
+      />
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700">Password</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        class="form-input mt-1 block w-full"
+      />
+    </div>
+    <div class="mb-6">
+      <label for="confirmPassword" class="block text-gray-700"
+        >Confirm Password</label
+      >
+      <input
+        type="password"
+        name="confirmPassword"
+        id="confirmPassword"
+        class="form-input mt-1 block w-full"
+      />
+    </div>
+    <div>
+      <button
+        type="submit"
+        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+      >
+        Sign Up
+      </button>
+    </div>
+  </form>
+</div>

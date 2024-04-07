@@ -1,20 +1,41 @@
 <%- include('../layout') %>
 
-<div id="content">
-  <h3>TIMER</h3>
-  <div id="timer">
-    <button id="startTimer">Start Timer</button>
-    <button id="stopTimer">Stop Timer</button>
-    <p id="timerDisplay">Timer: 0 seconds</p>
+<div id="content" class="container mx-auto px-4 py-8">
+  <h3 class="text-2xl font-bold mb-4">TIMER</h3>
+  <div id="timer" class="bg-gray-100 p-4 rounded-lg shadow-md">
+    <div class="flex items-center justify-between mb-4">
+      <button
+        id="startTimer"
+        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+      >
+        Start Timer
+      </button>
+      <button
+        id="stopTimer"
+        class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600"
+      >
+        Stop Timer
+      </button>
+    </div>
+    <p id="timerDisplay" class="text-xl font-semibold mb-4">Timer: 0 seconds</p>
 
-    <select id="durationSelect">
-      <option value="5">5 seconds</option>
-      <option value="6">6 seconds</option>
-      <option value="7">7 seconds</option>
-    </select>
+    <div class="mb-4">
+      <label for="durationSelect" class="block text-sm font-semibold mb-2"
+        >Select Duration:</label
+      >
+      <select id="durationSelect" class="form-select w-full">
+        <option value="5">5 seconds</option>
+        <option value="6">6 seconds</option>
+        <option value="7">7 seconds</option>
+      </select>
+    </div>
 
-    <p id="sessionCount">Sessions today: 0</p>
-    <p id="totalDuration">Total duration: 0 seconds</p>
+    <p id="sessionCount" class="text-sm text-gray-600 mb-2">
+      Sessions today: 0
+    </p>
+    <p id="totalDuration" class="text-sm text-gray-600">
+      Total duration: 0 seconds
+    </p>
   </div>
 </div>
 
