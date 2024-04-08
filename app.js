@@ -8,6 +8,9 @@ const flash = require('connect-flash');
 dotenv.config();
 
 const app = express();
+const cors = require('cors');
+
+app.use(cors());
 
 require('./db/db');
 

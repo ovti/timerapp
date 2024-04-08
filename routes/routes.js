@@ -5,6 +5,10 @@ const timerController = require('../controllers/timerController');
 
 router.get('/', userController.getIndex);
 
+router.get('/api', (req, res) => {
+  res.json({ message: 'Hello from server!' });
+});
+
 router.get('/signup', userController.getSignup);
 
 router.post('/signup', userController.postSignup);
