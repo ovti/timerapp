@@ -1,6 +1,10 @@
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('../db/models/user');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 exports.getIndex = async (req, res) => {
   try {
