@@ -8,8 +8,10 @@ function startTimer() {
   if (!isTimerRunning) {
     isTimerRunning = true;
     clearInterval(countdownTimer);
+    console.log('Selected duration:', selectedDuration);
     remainingTime = remainingTime === 0 ? selectedDuration : remainingTime;
     updateTimeUI();
+    document.getElementById('progress').style.width = '0';
     countdownTimer = setInterval(updateTimer, 1000);
   }
 }
@@ -24,6 +26,11 @@ function updateTimer() {
   if (remainingTime > 0 && isTimerRunning) {
     remainingTime--;
     updateTimeUI();
+
+    const progressPercentage =
+      ((selectedDuration - remainingTime) / selectedDuration) * 100;
+
+    document.getElementById('progress').style.width = progressPercentage + '%';
   } else {
     stopTimer();
     if (remainingTime === 0) {
@@ -50,6 +57,7 @@ function saveTimerSession(duration) {
     .then((response) => {
       if (response.ok) {
         console.log('Timer session saved successfully');
+        selectedDuration = 5;
       } else {
         console.error('Failed to save timer session');
       }
@@ -58,6 +66,8 @@ function saveTimerSession(duration) {
       console.error('Error:', error);
     });
 }
+
+/* DOM manipulation */
 
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM content loaded');
@@ -95,6 +105,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const totalDurationElement = document.getElementById('totalDuration');
     totalDurationElement.textContent = `Total duration today: ${totalDuration}`;
   }
+
+  function startCustomTimer() {
+    const customDurationInput = document.getElementById('customDuration');
+    const customDuration = parseInt(customDurationInput.value);
+    if (!isNaN(customDuration) && customDuration > 0) {
+      selectedDuration = customDuration;
+      startTimer();
+      // Reset the <select> element to its default value
+      document.getElementById('durationSelect').selectedIndex = 0;
+    } else {
+      console.error('Invalid custom duration');
+    }
+  }
+
+  document
+    .getElementById('startCustomTimer')
+    .addEventListener('click', startCustomTimer);
 
   function fetchAndUpdateData() {
     fetchSessionCount();

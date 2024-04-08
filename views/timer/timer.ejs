@@ -1,4 +1,4 @@
-<div id="content" class="container mx-auto px-4 py-8">
+<div id="content" class="container mx-auto px-4 py-8 w-96">
   <h3 class="text-2xl font-bold mb-4">TIMER</h3>
   <div id="timer" class="bg-gray-100 p-4 rounded-lg shadow-md">
     <div class="flex items-center justify-between mb-4">
@@ -21,11 +21,34 @@
       <label for="durationSelect" class="block text-sm font-semibold mb-2"
         >Select Duration:</label
       >
-      <select id="durationSelect" class="form-select w-full">
+      <select id="durationSelect" class="form-select w-64">
         <option value="5">5 seconds</option>
         <option value="6">6 seconds</option>
         <option value="7">7 seconds</option>
       </select>
+    </div>
+
+    <div class="mb-4">
+      <label for="customDuration" class="block text-sm font-semibold mb-2"
+        >Custom Duration:</label
+      >
+      <input
+        id="customDuration"
+        type="number"
+        class="form-input w-64"
+        placeholder="Enter duration in seconds"
+      />
+
+      <button
+        id="startCustomTimer"
+        class="bg-blue-500 text-white py-2 px-4 rounded mt-2 w-64 hover:bg-blue-600"
+      >
+        Start Custom Timer
+      </button>
+    </div>
+
+    <div class="progress-bar">
+      <div id="progress" class="progress"></div>
     </div>
 
     <p id="sessionCount" class="text-sm text-gray-600 mb-2">
