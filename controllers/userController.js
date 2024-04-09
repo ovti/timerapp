@@ -45,6 +45,65 @@ exports.postSignup = async (req, res, next) => {
   }
 };
 
+// exports.logIn = (req, res, next) => {
+//   passport.authenticate('local', (err, user, info) => {
+//     if (err) {
+//       return next(err);
+//     }
+//     if (!user) {
+//       req.flash('error', 'Invalid username or password');
+//       return res.redirect('/');
+//     }
+//     req.logIn(user, (err) => {
+//       if (err) {
+//         return next(err);
+//       }
+//       return res.redirect('/');
+//     });
+//   })(req, res, next);
+// };
+
+// exports.logOut = (req, res, next) => {
+//   req.logout((err) => {
+//     if (err) {
+//       return next(err);
+//     }
+//     res.redirect('/');
+//   });
+// };
+
+exports.logIn = (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      const err = new Error('User not found');
+      err.status = 400;
+      return next(err);
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      jwt.sign(
+        { user: user },
+        process.env.JWT_SECRET,
+        { expiresIn: '30s' },
+        (err, token) => {
+          if (err) {
+            return next(err);
+          }
+          res.json({
+            token,
+            nickname: user.username,
+          });
+        }
+      );
+    });
+  })(req, res, next);
+};
+
 exports.logOut = (req, res, next) => {
   req.logout((err) => {
     if (err) {
@@ -54,20 +113,27 @@ exports.logOut = (req, res, next) => {
   });
 };
 
-exports.logIn = (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
+exports.createPost = (req, res) => {
+  jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => {
     if (err) {
-      return next(err);
+      res.sendStatus(403);
+    } else {
+      res.json({
+        message: 'Post created...',
+        authData,
+      });
     }
-    if (!user) {
-      req.flash('error', 'Invalid username or password');
-      return res.redirect('/');
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        return next(err);
-      }
-      return res.redirect('/');
-    });
-  })(req, res, next);
+  });
+};
+
+exports.verifyToken = (req, res, next) => {
+  const bearerHeader = req.headers['authorization'];
+  if (typeof bearerHeader !== 'undefined') {
+    const bearer = bearerHeader.split(' ');
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  } else {
+    res.sendStatus(403);
+  }
 };

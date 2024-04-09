@@ -9,6 +9,12 @@ router.get('/api', (req, res) => {
   res.json({ message: 'Hello from server!' });
 });
 
+router.post(
+  '/api/posts',
+  userController.verifyToken,
+  userController.createPost
+);
+
 router.get('/signup', userController.getSignup);
 
 router.post('/signup', userController.postSignup);
