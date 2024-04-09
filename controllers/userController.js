@@ -113,6 +113,7 @@ exports.logOut = (req, res, next) => {
   });
 };
 
+// test jwt
 exports.createPost = (req, res) => {
   jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => {
     if (err) {
@@ -124,16 +125,4 @@ exports.createPost = (req, res) => {
       });
     }
   });
-};
-
-exports.verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers['authorization'];
-  if (typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(' ');
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
-    next();
-  } else {
-    res.sendStatus(403);
-  }
 };

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../config/authMiddleware');
 const userController = require('../controllers/userController');
 const timerController = require('../controllers/timerController');
 
@@ -11,7 +12,7 @@ router.get('/api', (req, res) => {
 
 router.post(
   '/api/posts',
-  userController.verifyToken,
+  authMiddleware.verifyToken,
   userController.createPost
 );
 
