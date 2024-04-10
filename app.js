@@ -27,6 +27,7 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 
 require('./config/passport');
+require('./config/jwt');
 
 app.use(passport.initialize());
 app.use(passport.session());

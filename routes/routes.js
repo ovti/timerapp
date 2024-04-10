@@ -3,12 +3,19 @@ const router = express.Router();
 const authMiddleware = require('../config/authMiddleware');
 const userController = require('../controllers/userController');
 const timerController = require('../controllers/timerController');
+const passport = require('passport');
 
 router.get('/', userController.getIndex);
 
 router.get('/api', (req, res) => {
   res.json({ message: 'Hello from server!' });
 });
+
+// router.post(
+//   '/api/posts',
+//   authMiddleware.verifyToken,
+//   userController.createPost
+// );
 
 router.post(
   '/api/posts',
