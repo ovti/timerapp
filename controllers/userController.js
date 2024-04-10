@@ -89,13 +89,14 @@ exports.logIn = (req, res, next) => {
       jwt.sign(
         { user: user },
         process.env.JWT_SECRET,
-        { expiresIn: '30s' },
+        { expiresIn: '1h' },
         (err, token) => {
           if (err) {
             return next(err);
           }
           res.json({
             token,
+            userId: user.id,
             nickname: user.username,
           });
         }
@@ -113,7 +114,6 @@ exports.logOut = (req, res, next) => {
   });
 };
 
-// test jwt
 exports.createPost = (req, res) => {
   jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => {
     if (err) {
