@@ -39,6 +39,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// app.listen(12111, '0.0.0.0', () => {
+//   console.log(`App listening on port 12111`);
+// }
+// );
+
 app.use(require('./routes/routes'));
 
 module.exports = app;
