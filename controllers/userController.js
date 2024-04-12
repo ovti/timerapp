@@ -7,12 +7,13 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 exports.getIndex = async (req, res) => {
-  try {
-    res.render('index', { user: req.user });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server Error');
-  }
+  // try {
+  //   res.render('index', { user: req.user });
+  // } catch (err) {
+  //   console.error(err);
+  //   res.status(500).send('Server Error');
+  // }
+  res.json({ message: 'Hello from the server!' });
 };
 
 exports.getSignup = (req, res) => {
@@ -89,7 +90,7 @@ exports.logIn = (req, res, next) => {
       jwt.sign(
         { user: user },
         process.env.JWT_SECRET,
-        { expiresIn: '1h' },
+        { expiresIn: '1d' },
         (err, token) => {
           if (err) {
             return next(err);

@@ -3,6 +3,7 @@ const router = express.Router();
 const authMiddleware = require('../config/authMiddleware');
 const userController = require('../controllers/userController');
 const timerController = require('../controllers/timerController');
+const categoryController = require('../controllers/categoryController');
 
 router.get('/', userController.getIndex);
 
@@ -41,5 +42,9 @@ router.get(
   authMiddleware.verifyToken,
   timerController.totalDurationToday
 );
+
+router.post('/saveCategory/:id/:category', categoryController.saveCategory);
+
+router.get('/getCategories/:id', categoryController.getCategories);
 
 module.exports = router;
