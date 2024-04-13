@@ -26,12 +26,14 @@ exports.postSignup = async (req, res, next) => {
       where: { username: req.body.username },
     });
     if (existingUser) {
-      req.flash('error', 'User already exists');
-      return res.render('user/signup', { message: req.flash('error') });
+      const err = new Error('User already exists');
+      err.status = 400;
+      return next(err);
     }
     if (req.body.password !== req.body.confirmPassword) {
-      req.flash('error', 'Passwords do not match');
-      return res.render('user/signup', { message: req.flash('error') });
+      const err = new Error('Passwords do not match');
+      err.status = 401;
+      return next(err);
     }
 
     await User.create({
@@ -39,8 +41,7 @@ exports.postSignup = async (req, res, next) => {
       password: req.body.password,
     });
 
-    req.flash('success', 'You are now registered and can log in');
-    res.redirect('/');
+    res.json({ message: 'Registration successful' });
   } catch (err) {
     return next(err);
   }
