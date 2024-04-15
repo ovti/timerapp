@@ -15,6 +15,8 @@ router.get('/logout', userController.logOut);
 
 router.post('/login', userController.logIn);
 
+router.get('/sessions/:id', timerController.getSessions);
+
 router.post(
   '/saveTimerSession/:id/:time/:category',
   authMiddleware.verifyToken,

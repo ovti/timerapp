@@ -2,13 +2,14 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../db');
 
-class category extends Model {
+class Category extends Model {
   static associate(models) {
-    category.belongsTo(models.User, { foreignKey: 'userId' });
+    Category.belongsTo(models.User, { foreignKey: 'userId' });
+    Category.hasMany(models.TimerSession, { foreignKey: 'categoryId' });
   }
 }
 
-category.init(
+Category.init(
   {
     userId: {
       type: DataTypes.INTEGER,
@@ -23,9 +24,9 @@ category.init(
     sequelize,
     timestamps: true,
     updatedAt: false,
-    modelName: 'category',
+    modelName: 'Category',
     tableName: 'categories',
   }
 );
 
-module.exports = category;
+module.exports = Category;

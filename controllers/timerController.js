@@ -2,9 +2,27 @@ const TimerSession = require('../db/models/timerSession');
 const { Op } = require('sequelize');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
-const category = require('../db/models/category');
+const Category = require('../db/models/category');
 
 dotenv.config();
+
+exports.getSessions = async (req, res, next) => {
+  jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+    try {
+      const sessions = await TimerSession.findAll({
+        where: {
+          userId: req.params.id,
+        },
+        include: Category,
+        order: [['createdAt', 'DESC']],
+      });
+      res.json(sessions);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error fetching sessions');
+    }
+  });
+};
 
 exports.saveTimerSession = async (req, res, next) => {
   jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {

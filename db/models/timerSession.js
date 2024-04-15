@@ -5,7 +5,7 @@ const sequelize = require('../db');
 class TimerSession extends Model {
   static associate(models) {
     TimerSession.belongsTo(models.User, { foreignKey: 'userId' });
-    TimerSession.belongsTo(models.Category, { foreignKey: 'categoryId' });
+    TimerSession.hasOne(models.Category, { foreignKey: 'categoryId' });
   }
 }
 

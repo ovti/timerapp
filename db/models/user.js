@@ -1,9 +1,12 @@
+'use strict';
 const Sequelize = require('sequelize');
+const { Model } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const sequelize = require('../db');
 
-const User = sequelize.define(
-  'user',
+class User extends Model {}
+
+User.init(
   {
     username: {
       type: Sequelize.STRING,
@@ -18,6 +21,8 @@ const User = sequelize.define(
     },
   },
   {
+    sequelize,
+    modelName: 'User',
     timestamps: false,
   }
 );
