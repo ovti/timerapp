@@ -2,12 +2,7 @@
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../db');
 
-class Category extends Model {
-  static associate(models) {
-    Category.belongsTo(models.User, { foreignKey: 'userId' });
-    Category.hasMany(models.TimerSession, { foreignKey: 'categoryId' });
-  }
-}
+class Category extends Model {}
 
 Category.init(
   {

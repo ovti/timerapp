@@ -1,7 +1,7 @@
-const TimerSession = require('../db/models/timerSession');
 const { Op } = require('sequelize');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const TimerSession = require('../db/models/timerSession');
 const Category = require('../db/models/category');
 
 dotenv.config();

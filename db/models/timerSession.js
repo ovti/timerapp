@@ -1,13 +1,9 @@
 'use strict';
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../db');
+const Category = require('./category');
 
-class TimerSession extends Model {
-  static associate(models) {
-    TimerSession.belongsTo(models.User, { foreignKey: 'userId' });
-    TimerSession.hasOne(models.Category, { foreignKey: 'categoryId' });
-  }
-}
+class TimerSession extends Model {}
 
 TimerSession.init(
   {
@@ -32,5 +28,6 @@ TimerSession.init(
     tableName: 'timer_sessions',
   }
 );
+TimerSession.belongsTo(Category, { foreignKey: 'categoryId' });
 
 module.exports = TimerSession;
