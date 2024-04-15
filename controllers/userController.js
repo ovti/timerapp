@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const User = require('../db/models/user');
 const jwt = require('jsonwebtoken');
@@ -7,17 +6,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 exports.getIndex = async (req, res) => {
-  // try {
-  //   res.render('index', { user: req.user });
-  // } catch (err) {
-  //   console.error(err);
-  //   res.status(500).send('Server Error');
-  // }
   res.json({ message: 'Hello from the server!' });
 };
 
 exports.getSignup = (req, res) => {
-  res.render('user/signup', { message: req.flash('error') });
+  res.json({ message: 'Signup page' });
 };
 
 exports.postSignup = async (req, res, next) => {
@@ -46,33 +39,6 @@ exports.postSignup = async (req, res, next) => {
     return next(err);
   }
 };
-
-// exports.logIn = (req, res, next) => {
-//   passport.authenticate('local', (err, user, info) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     if (!user) {
-//       req.flash('error', 'Invalid username or password');
-//       return res.redirect('/');
-//     }
-//     req.logIn(user, (err) => {
-//       if (err) {
-//         return next(err);
-//       }
-//       return res.redirect('/');
-//     });
-//   })(req, res, next);
-// };
-
-// exports.logOut = (req, res, next) => {
-//   req.logout((err) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     res.redirect('/');
-//   });
-// };
 
 exports.logIn = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
@@ -113,18 +79,5 @@ exports.logOut = (req, res, next) => {
       return next(err);
     }
     res.redirect('/');
-  });
-};
-
-exports.createPost = (req, res) => {
-  jwt.verify(req.token, process.env.JWT_SECRET, (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      res.json({
-        message: 'Post created...',
-        authData,
-      });
-    }
   });
 };
