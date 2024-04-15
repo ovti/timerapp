@@ -17,6 +17,8 @@ router.post('/login', userController.logIn);
 
 router.get('/sessions/:id', timerController.getSessions);
 
+router.delete('/session/:id', timerController.deleteSession);
+
 router.post(
   '/saveTimerSession/:id/:time/:category',
   authMiddleware.verifyToken,

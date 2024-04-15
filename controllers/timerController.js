@@ -24,6 +24,22 @@ exports.getSessions = async (req, res, next) => {
   });
 };
 
+exports.deleteSession = async (req, res, next) => {
+  jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+    try {
+      await TimerSession.destroy({
+        where: {
+          id: req.params.id,
+        },
+      });
+      res.sendStatus(200);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error deleting session');
+    }
+  });
+};
+
 exports.saveTimerSession = async (req, res, next) => {
   jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
     try {
