@@ -14,6 +14,17 @@ exports.getSessions = async (req, res, next) => {
         where: {
           userId: req.params.id,
         },
+        include: [
+          {
+            model: Task,
+            include: [
+              {
+                model: Category,
+              },
+            ],
+          },
+        ],
+
         order: [['createdAt', 'DESC']],
       });
       res.json(sessions);
