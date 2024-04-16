@@ -1,7 +1,9 @@
 const category = require('../db/models/category');
-const TimerSession = require('../db/models/timerSession');
+const task = require('../db/models/task');
+const timerSession = require('../db/models/timerSession');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const { Op, sequelize } = require('sequelize');
 
 dotenv.config();
 
@@ -41,7 +43,7 @@ exports.saveCategory = async (req, res, next) => {
 exports.deleteCategory = async (req, res, next) => {
   jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
     try {
-      await TimerSession.destroy({
+      await task.destroy({
         where: {
           categoryId: req.params.id,
         },

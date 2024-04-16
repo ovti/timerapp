@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const TimerSession = require('../db/models/timerSession');
 const Category = require('../db/models/category');
+const Task = require('../db/models/task');
 
 dotenv.config();
 
@@ -13,7 +14,6 @@ exports.getSessions = async (req, res, next) => {
         where: {
           userId: req.params.id,
         },
-        include: Category,
         order: [['createdAt', 'DESC']],
       });
       res.json(sessions);
@@ -45,12 +45,29 @@ exports.saveTimerSession = async (req, res, next) => {
     try {
       console.log('Saving timer session ', req.params.time);
       console.log('User:', req.params.id);
-      console.log('Category:', req.params.category);
+      console.log('Task:', req.params.task);
       await TimerSession.create({
         userId: req.params.id,
-        categoryId: req.params.category,
+        taskId: req.params.task,
         timeInSeconds: parseInt(req.params.time),
       });
+      const task = await Task.findByPk(req.params.task);
+      const sessions = await TimerSession.count({
+        where: {
+          taskId: req.params.task,
+        },
+      });
+      if (sessions >= task.sessionsToComplete) {
+        await Task.update(
+          { status: 'completed' },
+          {
+            where: {
+              id: req.params.task,
+            },
+          }
+        );
+      }
+
       res.sendStatus(200);
     } catch (err) {
       console.error(err);

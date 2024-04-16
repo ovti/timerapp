@@ -4,6 +4,7 @@ const authMiddleware = require('../config/authMiddleware');
 const userController = require('../controllers/userController');
 const timerController = require('../controllers/timerController');
 const categoryController = require('../controllers/categoryController');
+const taskController = require('../controllers/taskController');
 
 router.get('/', userController.getIndex);
 
@@ -20,7 +21,7 @@ router.get('/sessions/:id', timerController.getSessions);
 router.delete('/session/:id', timerController.deleteSession);
 
 router.post(
-  '/saveTimerSession/:id/:time/:category',
+  '/saveTimerSession/:id/:time/:task',
   authMiddleware.verifyToken,
   timerController.saveTimerSession
 );
@@ -53,6 +54,14 @@ router.delete(
   '/category/:id',
   authMiddleware.verifyToken,
   categoryController.deleteCategory
+);
+
+router.get('/tasks/:id', authMiddleware.verifyToken, taskController.getTasks);
+
+router.post(
+  '/task/:id/:category/:title/:description/:sessionsToComplete',
+  authMiddleware.verifyToken,
+  taskController.saveTask
 );
 
 module.exports = router;
