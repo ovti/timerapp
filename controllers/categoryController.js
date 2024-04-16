@@ -40,9 +40,43 @@ exports.saveCategory = async (req, res, next) => {
   });
 };
 
+// exports.deleteCategory = async (req, res, next) => {
+//   jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+//     try {
+//       await task.destroy({
+//         where: {
+//           categoryId: req.params.id,
+//         },
+//       });
+//       await category.destroy({
+//         where: {
+//           id: req.params.id,
+//         },
+//       });
+//       res.sendStatus(200);
+//     } catch (err) {
+//       console.error(err);
+//       res.status(500).send('Error deleting category');
+//     }
+//   });
+// };
+
 exports.deleteCategory = async (req, res, next) => {
   jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
     try {
+      const tasks = await task.findAll({
+        where: {
+          categoryId: req.params.id,
+        },
+      });
+      const taskIds = tasks.map((task) => task.id);
+      await timerSession.destroy({
+        where: {
+          taskId: {
+            [Op.in]: taskIds,
+          },
+        },
+      });
       await task.destroy({
         where: {
           categoryId: req.params.id,

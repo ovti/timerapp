@@ -28,6 +28,7 @@ TimerSession.init(
     tableName: 'timer_sessions',
   }
 );
+
 TimerSession.belongsTo(Task, { foreignKey: 'taskId' });
 
 module.exports = TimerSession;

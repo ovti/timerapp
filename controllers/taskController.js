@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const Task = require('../db/models/task');
+const Category = require('../db/models/category');
+const TimerSession = require('../db/models/timerSession');
+const User = require('../db/models/user');
 
 dotenv.config();
 
@@ -11,9 +14,27 @@ exports.getTasks = async (req, res, next) => {
         where: {
           userId: req.params.id,
         },
+        include: [
+          {
+            model: Category,
+          },
+        ],
         order: [['createdAt', 'DESC']],
       });
-      res.json(tasks);
+      const tasksWithSessionCount = await Promise.all(
+        tasks.map(async (task) => {
+          const sessionCount = await TimerSession.count({
+            where: {
+              taskId: task.id,
+            },
+          });
+          return {
+            ...task.toJSON(),
+            sessionCount,
+          };
+        })
+      );
+      res.json(tasksWithSessionCount);
     } catch (err) {
       console.error(err);
       res.status(500).send('Error fetching tasks');
