@@ -60,7 +60,7 @@ exports.saveTimerSession = async (req, res, next) => {
       await TimerSession.create({
         userId: req.params.id,
         taskId: req.params.task,
-        timeInSeconds: parseInt(req.params.time),
+        time: parseInt(req.params.time),
       });
       const task = await Task.findByPk(req.params.task);
       const sessions = await TimerSession.count({
@@ -106,7 +106,7 @@ exports.sessionCountToday = async (req, res, next) => {
 
 exports.totalDurationToday = async (req, res, next) => {
   try {
-    const totalDuration = await TimerSession.sum('timeInSeconds', {
+    const totalDuration = await TimerSession.sum('time', {
       where: {
         userId: req.params.id,
         createdAt: {

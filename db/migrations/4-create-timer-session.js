@@ -24,7 +24,7 @@ module.exports = {
           key: 'id',
         },
       },
-      timeInSeconds: {
+      time: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

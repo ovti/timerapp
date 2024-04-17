@@ -15,7 +15,7 @@ TimerSession.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    timeInSeconds: {
+    time: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

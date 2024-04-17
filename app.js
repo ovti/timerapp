@@ -16,7 +16,6 @@ app.use(cors());
 require('./db/db');
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.set('view engine', 'ejs');
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -39,8 +38,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.listen(12111, '0.0.0.0', () => {
-//   console.log(`App listening on port 12111`);
+// app.listen(12122, '0.0.0.0', () => {
+//   console.log(`App listening on port 12122`);
 // }
 // );
 
