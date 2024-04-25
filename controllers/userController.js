@@ -2,6 +2,9 @@ const passport = require('passport');
 const User = require('../db/models/user');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const TimerSession = require('../db/models/timerSession');
+const Category = require('../db/models/category');
+const Task = require('../db/models/task');
 
 dotenv.config();
 
@@ -11,6 +14,30 @@ exports.getIndex = async (req, res) => {
 
 exports.getSignup = (req, res) => {
   res.json({ message: 'Signup page' });
+};
+
+exports.deleteData = async (req, res, next) => {
+  try {
+    await TimerSession.destroy({
+      where: {
+        userId: req.params.id,
+      },
+    });
+    await Task.destroy({
+      where: {
+        userId: req.params.id,
+      },
+    });
+    await Category.destroy({
+      where: {
+        userId: req.params.id,
+      },
+    });
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error deleting data');
+  }
 };
 
 exports.postSignup = async (req, res, next) => {

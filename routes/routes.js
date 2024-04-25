@@ -16,6 +16,8 @@ router.get('/logout', userController.logOut);
 
 router.post('/login', userController.logIn);
 
+router.delete('/user/:id', userController.deleteData);
+
 router.get('/sessions/:id', timerController.getSessions);
 
 router.delete('/session/:id', timerController.deleteSession);
