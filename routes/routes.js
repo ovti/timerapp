@@ -64,4 +64,10 @@ router.post(
   taskController.saveTask
 );
 
+router.delete(
+  '/task/:id',
+  authMiddleware.verifyToken,
+  taskController.deleteTask
+);
+
 module.exports = router;

@@ -65,3 +65,25 @@ exports.saveTask = async (req, res, next) => {
     }
   });
 };
+
+exports.deleteTask = async (req, res, next) => {
+  jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+    try {
+      const task = await Task.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+      await TimerSession.destroy({
+        where: {
+          taskId: task.id,
+        },
+      });
+      await task.destroy();
+      res.sendStatus(200);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error deleting task');
+    }
+  });
+};
