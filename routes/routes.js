@@ -5,8 +5,11 @@ const userController = require('../controllers/userController');
 const timerController = require('../controllers/timerController');
 const categoryController = require('../controllers/categoryController');
 const taskController = require('../controllers/taskController');
+const settingsController = require('../controllers/settingsController');
 
 router.get('/', userController.getIndex);
+
+// user routes
 
 router.get('/signup', userController.getSignup);
 
@@ -17,6 +20,17 @@ router.get('/logout', userController.logOut);
 router.post('/login', userController.logIn);
 
 router.delete('/user/:id', userController.deleteData);
+
+// settings routes
+
+router.get('/settings/:id', settingsController.getSettings);
+
+router.put(
+  '/settings/:id/:breakDuration/:alarmSound',
+  settingsController.updateSettings
+);
+
+// timer routes
 
 router.get('/sessions/:id', timerController.getSessions);
 
@@ -40,6 +54,8 @@ router.get(
   timerController.totalDurationToday
 );
 
+// category routes
+
 router.get(
   '/category/:id',
   authMiddleware.verifyToken,
@@ -57,6 +73,8 @@ router.delete(
   authMiddleware.verifyToken,
   categoryController.deleteCategory
 );
+
+// task routes
 
 router.get('/tasks/:id', authMiddleware.verifyToken, taskController.getTasks);
 

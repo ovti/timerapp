@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const TimerSession = require('../db/models/timerSession');
 const Category = require('../db/models/category');
 const Task = require('../db/models/task');
+const Settings = require('../db/models/settings');
 
 dotenv.config();
 
@@ -59,6 +60,14 @@ exports.postSignup = async (req, res, next) => {
     await User.create({
       username: req.body.username,
       password: req.body.password,
+    });
+
+    // find user with given username and give him default settings
+    const user = await User.findOne({ where: { username: req.body.username } });
+    await Settings.create({
+      userId: user.id,
+      breakDuration: 5,
+      alarmSound: 'bell',
     });
 
     res.json({ message: 'Registration successful' });
