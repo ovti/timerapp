@@ -68,6 +68,7 @@ exports.postSignup = async (req, res, next) => {
       userId: user.id,
       breakDuration: 5,
       alarmSound: 'bell',
+      autoResume: true,
     });
 
     res.json({ message: 'Registration successful' });

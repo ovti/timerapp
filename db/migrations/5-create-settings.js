@@ -24,6 +24,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      autoResume: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

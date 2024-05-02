@@ -26,7 +26,7 @@ router.delete('/user/:id', userController.deleteData);
 router.get('/settings/:id', settingsController.getSettings);
 
 router.put(
-  '/settings/:id/:breakDuration/:alarmSound',
+  '/settings/:id/:breakDuration/:alarmSound/:autoResume',
   settingsController.updateSettings
 );
 

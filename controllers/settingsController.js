@@ -29,6 +29,7 @@ exports.updateSettings = async (req, res, next) => {
         {
           breakDuration: req.params.breakDuration,
           alarmSound: req.params.alarmSound,
+          autoResume: req.params.autoResume,
         },
         {
           where: {

@@ -19,6 +19,10 @@ Settings.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    autoResume: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
   },
   {
     sequelize,
