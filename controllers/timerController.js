@@ -54,9 +54,6 @@ exports.deleteSession = async (req, res, next) => {
 exports.saveTimerSession = async (req, res, next) => {
   jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
     try {
-      console.log('Saving timer session ', req.params.time);
-      console.log('User:', req.params.id);
-      console.log('Task:', req.params.task);
       await TimerSession.create({
         userId: req.params.id,
         taskId: req.params.task,

@@ -13,7 +13,7 @@ exports.verifyToken = (req, res, next) => {
       if (err) {
         res.sendStatus(403);
       } else {
-        req.authData = authData; // Attaching authenticated user data to request object
+        req.authData = authData; 
         next();
       }
     });

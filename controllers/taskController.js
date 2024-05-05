@@ -45,11 +45,6 @@ exports.getTasks = async (req, res, next) => {
 exports.saveTask = async (req, res, next) => {
   jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
     try {
-      console.log('Saving task ', req.params.title);
-      console.log('User:', req.params.id);
-      console.log('Category:', req.params.category);
-      console.log('Description:', req.params.description);
-      console.log('Sessions to complete:', req.params.sessionsToComplete);
       await Task.create({
         userId: req.params.id,
         categoryId: req.params.category,

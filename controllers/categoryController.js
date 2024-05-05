@@ -26,8 +26,6 @@ exports.getCategories = async (req, res, next) => {
 exports.saveCategory = async (req, res, next) => {
   jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
     try {
-      console.log('Saving category ', req.params.category);
-      console.log('User:', req.params.id);
       await category.create({
         userId: req.params.id,
         category: req.params.category,
