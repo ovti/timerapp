@@ -17,7 +17,7 @@ module.exports = {
         },
       },
       category: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(16),
         allowNull: false,
       },
       createdAt: {

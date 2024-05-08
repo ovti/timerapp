@@ -25,7 +25,7 @@ module.exports = {
         },
       },
       time: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(2),
         allowNull: false,
       },
       createdAt: {

@@ -17,11 +17,11 @@ module.exports = {
         },
       },
       breakDuration: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(2),
         allowNull: false,
       },
       alarmSound: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(32),
         allowNull: false,
       },
       autoResume: {

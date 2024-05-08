@@ -9,15 +9,15 @@ class User extends Model {}
 User.init(
   {
     username: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(16),
       allowNull: false,
       unique: true,
-      validate: { len: [3, undefined] },
+      validate: { len: [3, 16] },
     },
     password: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(64),
       allowNull: false,
-      validate: { len: [3, undefined] },
+      validate: { len: [3, 64] },
     },
   },
   {

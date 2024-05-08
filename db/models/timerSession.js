@@ -16,8 +16,9 @@ TimerSession.init(
       allowNull: false,
     },
     time: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(2),
       allowNull: false,
+      validate: { min: 1, max: 99 },
     },
   },
   {

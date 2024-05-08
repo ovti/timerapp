@@ -12,11 +12,18 @@ Settings.init(
       allowNull: false,
     },
     breakDuration: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(2),
+      validate: {
+        min: 1,
+        max: 99,
+      },
       allowNull: false,
     },
     alarmSound: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(32),
+      validate: {
+        len: [3, 32],
+      },
       allowNull: false,
     },
     autoResume: {

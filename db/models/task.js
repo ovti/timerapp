@@ -16,11 +16,17 @@ Task.init(
       allowNull: false,
     },
     title: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(32),
+      validate: {
+        len: [3, 32],
+      },
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(64),
+      validate: {
+        len: [3, 64],
+      },
       allowNull: true,
     },
     status: {
@@ -28,7 +34,11 @@ Task.init(
       allowNull: false,
     },
     sessionsToComplete: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER(2),
+      validate: {
+        min: 1,
+        max: 99,
+      },
       allowNull: false,
     },
   },

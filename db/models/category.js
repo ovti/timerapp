@@ -11,7 +11,10 @@ Category.init(
       allowNull: false,
     },
     category: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(16),
+      validate: {
+        len: [3, 16],
+      },
       allowNull: false,
     },
   },

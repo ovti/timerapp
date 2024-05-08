@@ -25,11 +25,11 @@ module.exports = {
         },
       },
       title: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(32),
         allowNull: false,
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(64),
         allowNull: true,
       },
       status: {
@@ -37,7 +37,7 @@ module.exports = {
         allowNull: false,
       },
       sessionsToComplete: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(2),
         allowNull: false,
       },
       createdAt: {
