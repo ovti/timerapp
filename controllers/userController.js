@@ -62,7 +62,6 @@ exports.postSignup = async (req, res, next) => {
       password: req.body.password,
     });
 
-    // find user with given username and give him default settings
     const user = await User.findOne({ where: { username: req.body.username } });
     await Settings.create({
       userId: user.id,
