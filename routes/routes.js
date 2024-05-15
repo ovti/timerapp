@@ -90,4 +90,9 @@ router.delete(
   taskController.deleteTask
 );
 
+router.put(
+  '/task/:id/:description/:sessionsToComplete',
+  taskController.updateTask
+);
+
 module.exports = router;

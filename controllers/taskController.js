@@ -82,3 +82,23 @@ exports.deleteTask = async (req, res, next) => {
     }
   });
 };
+
+exports.updateTask = async (req, res, next) => {
+  jwt.verify(req.token, process.env.JWT_SECRET, async (err, authData) => {
+    try {
+      const task = await Task.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+      await task.update({
+        description: req.params.description,
+        sessionsToComplete: req.params.sessionsToComplete,
+      });
+      res.sendStatus(200);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error updating task');
+    }
+  });
+};
