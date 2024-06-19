@@ -70,6 +70,12 @@ exports.postSignup = async (req, res, next) => {
       autoResume: true,
     });
 
+    // create category 'None' for new user
+    await Category.create({
+      userId: user.id,
+      category: 'None',
+    });
+
     res.json({ message: 'Registration successful' });
   } catch (err) {
     return next(err);
