@@ -1,9 +1,10 @@
 {
   "development": {
     "username": "root",
-    "password": "outi",
+    "password": "root",
     "database": "database_development",
     "host": "127.0.0.1",
+    "port": "33061",
     "dialect": "mysql"
   },
   "test": {
